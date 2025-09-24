@@ -19,7 +19,6 @@
                         <li Class="ScenPart_ScatterThingsNearPlayerStart">
                             <def>ScatterThingsNearPlayerStart</def>
                             <thingDef>MechanitorShuttle</thingDef>
-                            <count>1</count>
                         </li>
                     </value>
                 </li>
@@ -33,15 +32,27 @@
         </match>
         <nomatch Class="PatchOperationSequence">
             <operations>
-                <li Class="PatchOperationAdd">
-                    <xpath>Defs/ScenarioDef[defName="Mechanitor"]/scenario/parts</xpath>
-                    <value>
-                        <li Class="ScenPart_ScatterThingsNearPlayerStart">
-                            <def>ScatterThingsNearPlayerStart</def>
-                            <thingDef>PassengerShuttle</thingDef>
-                            <count>1</count>
-                        </li>
-                    </value>
+                <li Class="PatchOperationConditional">
+                    <xpath>Defs/ThingDef[defName="PassengerShuttle"]/stuffCategories</xpath>
+                    <match Class="PatchOperationAdd">
+                        <xpath>Defs/ScenarioDef[defName="Mechanitor"]/scenario/parts</xpath>
+                        <value>
+                            <li Class="ScenPart_ScatterThingsNearPlayerStart">
+                                <def>ScatterThingsNearPlayerStart</def>
+                                <thingDef>PassengerShuttle</thingDef>
+                                <stuff>Steel</stuff>
+                            </li>
+                        </value>
+                    </match>
+                    <nomatch Class="PatchOperationAdd">
+                        <xpath>Defs/ScenarioDef[defName="Mechanitor"]/scenario/parts</xpath>
+                        <value>
+                            <li Class="ScenPart_ScatterThingsNearPlayerStart">
+                                <def>ScatterThingsNearPlayerStart</def>
+                                <thingDef>PassengerShuttle</thingDef>
+                            </li>
+                        </value>
+                    </nomatch>
                 </li>
                 <li Class="PatchOperationConditional">
                     <xpath>Defs/ThingDef[defName="PassengerShuttle"]/building/claimable</xpath>
